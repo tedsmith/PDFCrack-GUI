@@ -1,0 +1,295 @@
+object MainForm: TMainForm
+  Left = 585
+  Height = 820
+  Top = 205
+  Width = 792
+  Caption = 'PDF Crack (GUI) v1.2 by Ted Smith 2017-2020'
+  ClientHeight = 796
+  ClientWidth = 792
+  Menu = MainMenu1
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  Position = poDesktopCenter
+  LCLVersion = '2.0.4.0'
+  object Panel1: TPanel
+    Left = 0
+    Height = 360
+    Top = 0
+    Width = 792
+    Align = alTop
+    ClientHeight = 360
+    ClientWidth = 792
+    ParentColor = False
+    TabOrder = 0
+    object lblProgressIndicator: TLabel
+      Left = 5
+      Height = 1
+      Top = 354
+      Width = 782
+      Align = alBottom
+      BorderSpacing.Around = 4
+      Font.Color = clRed
+      ParentColor = False
+      ParentFont = False
+    end
+    object btnCrackPDF: TButton
+      Left = 216
+      Height = 25
+      Top = 8
+      Width = 128
+      Caption = 'Crack PDF'
+      OnClick = btnCrackPDFClick
+      TabOrder = 0
+    end
+    object btnSelectPDF: TButton
+      Left = 16
+      Height = 25
+      Top = 8
+      Width = 131
+      Caption = 'Select PDF'
+      OnClick = btnSelectPDFClick
+      TabOrder = 1
+    end
+    object gbChangeOptions: TGroupBox
+      Left = 16
+      Height = 256
+      Top = 72
+      Width = 746
+      Anchors = [akTop, akLeft, akRight]
+      Caption = 'Override Default Options'
+      ClientHeight = 239
+      ClientWidth = 744
+      TabOrder = 2
+      object btnChooseWordListFile: TButton
+        Left = 6
+        Height = 25
+        Hint = 'Wordlists (dictionary files) can make the decryption '#10'faster if the true password is in it. Has to be text file, '#10'one password per line'
+        Top = 7
+        Width = 128
+        Caption = 'Select WordList?'
+        OnClick = btnChooseWordListFileClick
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 0
+        Visible = False
+      end
+      object lblMinLength: TLabel
+        Left = 6
+        Height = 16
+        Hint = 'Will start with passwords of this length. If left as zero, full default range will apply. '
+        Top = 41
+        Width = 130
+        Caption = 'Min password length:'
+        ParentColor = False
+        ParentShowHint = False
+        ShowHint = True
+      end
+      object lblMaxLength: TLabel
+        Left = 6
+        Height = 16
+        Hint = 'Wil end with passwords of this length. If left as zero, full default range will apply. '
+        Top = 71
+        Width = 133
+        Caption = 'Max password length:'
+        ParentColor = False
+        ParentShowHint = False
+        ShowHint = True
+      end
+      object SpinEdit_MaxLength: TSpinEdit
+        Left = 198
+        Height = 28
+        Hint = 'Will end with passwords of this length. If left as zero, full default range will apply. '
+        Top = 71
+        Width = 50
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 1
+      end
+      object SpinEdit_MinLength: TSpinEdit
+        Left = 198
+        Height = 28
+        Hint = 'Will start with passwords of this length. If left as zero, full default range will apply. '
+        Top = 39
+        Width = 50
+        OnChange = SpinEdit_MinLengthChange
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 2
+      end
+      object lblWordListFileName: TLabel
+        Left = 198
+        Height = 1
+        Top = 15
+        Width = 300
+        Anchors = [akTop, akLeft, akRight]
+        ParentColor = False
+        Visible = False
+      end
+      object Label2: TLabel
+        Left = 6
+        Height = 16
+        Hint = 'By default, the standard alphanumerical characters ([a-zA-Z0-9]) are used which will work, more often than not. '#10'But, if you KNOW the password contains ONLY numbers, it will be quicker to specify here ''0123456789'', for example.'#10'Define your own character set here (see pdfcrack source help for more info)'
+        Top = 103
+        Width = 162
+        Caption = 'Specify specific characters: '
+        ParentColor = False
+        ParentShowHint = False
+        ShowHint = True
+      end
+      object edtCharacterOverride: TEdit
+        Left = 198
+        Height = 28
+        Hint = 'By default, the standard alphanumerical characters ([a-zA-Z0-9]) are used which will work, more often than not. '#10'But, if you KNOW the password contains ONLY numbers, it will be quicker to specify here ''0123456789'', for example.'#10'Define your own character set here (see pdfcrack source help for more info)'
+        Top = 103
+        Width = 362
+        Anchors = [akTop, akLeft, akRight]
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 3
+      end
+      object lblWorkWithOwnerPassword: TLabel
+        Left = 8
+        Height = 16
+        Top = 144
+        Width = 168
+        Caption = 'Work with owner password?'
+        ParentColor = False
+      end
+      object cbWorkWithOwnerPassword: TCheckBox
+        Left = 198
+        Height = 23
+        Hint = 'Checked, will work with owner password.'#10'If user password also supplied, will use that'#10'to break owner password. '
+        Top = 144
+        Width = 44
+        Caption = 'No'
+        OnChange = cbWorkWithOwnerPasswordChange
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 4
+      end
+      object ledtUserPasswordString: TLabeledEdit
+        Left = 267
+        Height = 28
+        Top = 152
+        Width = 293
+        Anchors = [akTop, akLeft, akRight]
+        EditLabel.Height = 16
+        EditLabel.Hint = 'Enter user password, if known, to speed up breaking'#10'owner password (initiates -p behaviour). '#10#10'Leave empty if not known (initiates -o behaviour). '
+        EditLabel.Width = 293
+        EditLabel.Caption = 'User Password String (leave empty if unknown)'
+        EditLabel.ParentColor = False
+        EditLabel.ParentShowHint = False
+        EditLabel.ShowHint = True
+        TabOrder = 5
+        Visible = False
+      end
+      object Label1: TLabel
+        Left = 8
+        Height = 16
+        Top = 180
+        Width = 156
+        Caption = 'Work with user password?'
+        ParentColor = False
+      end
+      object cbWorkWithUserPassword: TCheckBox
+        Left = 198
+        Height = 23
+        Top = 180
+        Width = 44
+        Caption = 'No'
+        OnChange = cbWorkWithUserPasswordChange
+        TabOrder = 6
+      end
+      object lblPermutatePasswords: TLabel
+        Left = 8
+        Height = 16
+        Top = 208
+        Width = 135
+        Caption = 'Permutate passwords?'
+        ParentColor = False
+      end
+      object cbPermutatePasswords: TCheckBox
+        Left = 198
+        Height = 23
+        Top = 208
+        Width = 44
+        Caption = 'No'
+        OnChange = cbPermutatePasswordsChange
+        TabOrder = 7
+      end
+    end
+    object btnStop: TButton
+      Left = 416
+      Height = 25
+      Top = 8
+      Width = 75
+      Caption = 'Stop!'
+      Enabled = False
+      OnClick = btnStopClick
+      TabOrder = 3
+    end
+    object cbOverrideDefaultOptions: TCheckBox
+      Left = 16
+      Height = 23
+      Top = 40
+      Width = 183
+      Caption = 'Override Default Options?'
+      OnChange = cbOverrideDefaultOptionsChange
+      TabOrder = 4
+    end
+  end
+  object Memo1: TMemo
+    Left = 4
+    Height = 428
+    Top = 364
+    Width = 784
+    Align = alClient
+    Anchors = [akTop, akLeft, akRight]
+    BorderSpacing.Around = 4
+    Lines.Strings = (
+      'First, select your PDF file.'
+      'Then, apply any non-default options and click ''Crack PDF'' to start'
+    )
+    ScrollBars = ssAutoBoth
+    TabOrder = 1
+  end
+  object Process: TProcess
+    Active = False
+    Options = []
+    Priority = ppNormal
+    StartupOptions = []
+    ShowWindow = swoNone
+    WindowColumns = 0
+    WindowHeight = 0
+    WindowLeft = 0
+    WindowRows = 0
+    WindowTop = 0
+    WindowWidth = 0
+    FillAttribute = 0
+    left = 512
+    top = 8
+  end
+  object OpenDialog1: TOpenDialog
+    left = 512
+    top = 72
+  end
+  object OpenDialog2: TOpenDialog
+    left = 512
+    top = 136
+  end
+  object MainMenu1: TMainMenu
+    left = 552
+    top = 8
+    object MenuItem1: TMenuItem
+      Caption = 'F&ile'
+      object MenuItem2: TMenuItem
+        Caption = 'E&xit'
+        OnClick = MenuItem2Click
+      end
+    end
+    object MenuItem3: TMenuItem
+      Caption = 'About'
+      OnClick = MenuItem3Click
+    end
+  end
+end
